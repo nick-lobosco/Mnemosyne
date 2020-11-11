@@ -13,7 +13,7 @@ google-auth-httplib2==0.0.3
 google-auth-oauthlib==0.4.1
 goslate==1.5.1
 gunicorn==19.4.5
-httplib2==0.14.0
+httplib2==0.18.0
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.3
