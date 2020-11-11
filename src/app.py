@@ -24,7 +24,15 @@ def weeklyPic():
         sendPic()
 
 def lastChance():
-    postText('Hello, If you completed your goal this week, please post "@mnem i finished my goal" by 8PM EST')
+    week = getCurrentWeek()
+    query = {
+        'startDate': week[0],
+        'endDate': week[1]
+    }
+    db = getMongoDb()
+    goal = db.goals.find_one(query)
+    if(goal):
+        postText('Hello, If you completed your goal this week, please post "@mnem i finished my goal" by 8PM EST')
 
 def endOfWeek(): #should run Monday afternoon
     week = getLastWeek()
@@ -35,7 +43,13 @@ def endOfWeek(): #should run Monday afternoon
     }
     db = getMongoDb()
     goals = db.goals.update(query, { '$set': { 'status': 'Failed'}}, multi=True )
-    listGoalsForWeek(week)
+    query2 = {
+        'startDate': week[0],
+        'endDate': week[1]
+    }
+    goal = db.goals.find_one(query2)
+    if(goal):
+        listGoalsForWeek(week)
 
 def sendPic():
     try:
